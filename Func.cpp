@@ -140,7 +140,6 @@ string lastn;
 	public: 
 		void print_cheese() {
 			cout << "cheese";
-			func::key();
 		}
 	
 	};

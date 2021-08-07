@@ -137,6 +137,7 @@ int main() {
 	if (passcheck == password) {
 		Class1* p1 = 0;
 		p1->print_cheese();
+		key();
 	}
 	else {
 		cout << "Incorrect Password!";
