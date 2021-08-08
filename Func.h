@@ -10,7 +10,7 @@ namespace func {
 	void add(double a, double d);
 	void sub(double s, double b);
     void div(double d, double i);
-
+	int food();
 }
 
 #endif

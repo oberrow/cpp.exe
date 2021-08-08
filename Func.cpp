@@ -33,6 +33,9 @@ string nl9;
 string nl10;
 string firstn;
 string lastn;
+const int SIZE = 25;
+int i;
+string foodchoice[SIZE] = { "pizza", "shawarma", "maccoroni and cheese", "falafal", "rice", "spagettie", "chicken burger", "chicken", "chicken nuggets", "normal burger,", };
     void func::main2() {
 		cout << "Your first name";
 		cin >> firstn;
@@ -91,16 +94,17 @@ string lastn;
 	}
 	void func::struct1()
 	{
+		cin.ignore();
 		cout << "Enter one of the ingredients of your favourite food";
-		cin >> ingred1;
+		getline(cin, ingred1);
 		cout << "Enter another one of the ingredients";
-		cin >> ingred2;
+		getline(cin, ingred2);
 		cout << "Enter another one of the ingredients";
-		cin >> ingred3;
+		getline(cin, ingred3);
 		cout << "Enter another one of the ingredients";
-		cin >> ingred4;
+		getline(cin, ingred4);
 		cout << "Enter another one of the ingredients";
-		cin >> ingred5;
+		getline(cin, ingred5);
 		Food food{ ingred1, ingred2, ingred3, ingred4, ingred5 };
 		cout << "The ingredients of youur favourite food is: \n";
 		cout << food.ingredient1 << "\n";
@@ -135,6 +139,54 @@ string lastn;
 	{
 		double quotient = d / i;
 		cout << d << " / " << i << " = " << quotient << endl;
+	}
+	int func::food()
+	{
+		cout << "\n Enter any number from 0-9\n";
+		cin >> i;
+		if (i > 9)
+		{
+			cout << "\nInvalid Number! Enter any number from 0-9";
+			return 1;
+		}
+		else {
+			//Nothing here either
+		}
+		cout << "Your favourite food is: ";
+		if (i == 0) {
+			cout << foodchoice[0];
+		}
+		else if (i == 1) {
+			cout << foodchoice[1];
+		}
+		else if (i == 2) {
+			cout << foodchoice[2];
+		}
+		else if (i == 3) {
+			cout << foodchoice[3];
+		}
+		else if (i == 4) {
+			cout << foodchoice[4];
+		}
+		else if (i == 5) {
+			cout << foodchoice[5];
+		}
+		else if (i == 6) {
+			cout << foodchoice[6];
+		}
+		else if (i == 7) {
+			cout << foodchoice[7];
+		}
+		else if (i == 8) {
+			cout << foodchoice[8];
+		}
+		else if (i == 9) {
+			cout << foodchoice[9];
+		}
+		else {
+			//Nothing here
+		}
+		key();
 	}
 	class Class1 {
 	public: 
