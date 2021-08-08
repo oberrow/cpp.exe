@@ -1,0 +1,10 @@
+body {
+    background-color: lightblue;
+}
+  #Pg2_Source, #Pg3_Source,  #Page-1-Source, #HomePg {
+      border:4px double black ;
+      background-color: aquamarine;
+      border-radius: 5px;
+      color: chocolate;
+}
+    

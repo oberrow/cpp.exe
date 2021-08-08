@@ -1,0 +1,18 @@
+body {
+    background-color: cornflowerblue;
+}
+#HomePg, #Pg2 {
+    color: aqua;
+    border: 4px double black;
+    border-radius: 5px;
+}
+#JavaRe {
+    color: lawngreen;
+    border: 4px double black;
+    border-radius: 5px;
+}
+#JavaBack {
+    color: rgba(165, 42, 42, 0.795);
+    border: 4px double black;
+    border-radius: 5px;
+}
