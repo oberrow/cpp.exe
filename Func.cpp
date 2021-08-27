@@ -3,10 +3,23 @@
 #include <fstream>
 #include "Func.h"
 #include <string>
+#include <Windows.h>
 double o;
 double p;
-using namespace std;
-using namespace func;
+using std::cout;
+using std::cin;
+using std::string;
+using std::ofstream;
+using std::ifstream;
+using std::endl;
+using func::Class1;
+using func::cmd;
+using func::food;
+using func::key;
+using func::struct1;
+using func::math;
+using func::main2;
+using func::textEdit;
 struct Food {
 	string ingredient1;
 	string ingredient2;
@@ -37,12 +50,12 @@ string myText;
 string newFileName;
 char fileName[1000];
 int rw;
-const int SIZE = 25;
-int i;
+const int size = 11;
 char choice;
+string executablePath;
 string pHolder;
-string foodchoice[SIZE] = { "pizza", "shawarma", "maccoroni and cheese", "falafal", "rice", "spagettie", "chicken burger", "chicken", "chicken nuggets", "normal burger,", };
-	void func::key() {
+string foodchoice[size] = { "pizza", "shawarma", "maccoroni and cheese", "falafal", "rice", "spagettie", "chicken burger", "chicken", "chicken nuggets", "normal burger", };
+    void func::key() {
 		cout << "\nPress any key to continue...";
 		_getch();
 	}
@@ -68,71 +81,191 @@ string foodchoice[SIZE] = { "pizza", "shawarma", "maccoroni and cheese", "falafa
 		cout << food.ingredient5;
 		key();
 	}
-	void func::multi(double m, double u)
+	void func::time(int start, int duration)
 	{
+		int minutes = 0;
+		int seconds = 0;
+		seconds = duration;
+		int hours = 0;
+		int days = 0;
+	    start++;
+		cout << "Format DAYS : HOURS : MINUTES : SECONDS\n";
+		for (int i = 0; i < duration; ++i) {
+			
+			cout << days << " : " << hours << " : " << minutes << " : " << start << std::endl;
+			seconds++;
+			start++;
+			func::delay(1);
+			if (start == 60 || seconds == 60) {
+				minutes++;
+				seconds = 0;
+				start = 0;
+			}
+			else if (minutes == 60) {
+				hours++;
+				seconds = 0;
+				minutes = 0;
+			}
+			else if (hours == 24) {
+				days++;
+				seconds = 0;
+				minutes = 0;
+				hours = 0;
+			}
+			else {
+
+			}
+		}
+	}
+	void func::struct2()
+	{
+		cout << "Enter one of the ingredients of your favourite food";
+		getline(cin, ingred1);
+		cout << "Enter another one of the ingredients";
+		getline(cin, ingred2);
+		cout << "Enter another one of the ingredients";
+		getline(cin, ingred3);
+		cout << "Enter another one of the ingredients";
+		getline(cin, ingred4);
+		cout << "Enter another one of the ingredients";
+		getline(cin, ingred5);
+		Food food{ ingred1, ingred2, ingred3, ingred4, ingred5 };
+		cout << "The ingredients of youur favourite food is: \n";
+		cout << food.ingredient1 << "\n";
+		cout << food.ingredient2 << "\n";
+		cout << food.ingredient3 << "\n";
+		cout << food.ingredient4 << "\n";
+		cout << food.ingredient5;
+		key();
+	}
+	void func::math::multi(double m, double u)
+	{
+		
 		double product = m * u;
 		cout << m << " x " << u << " = " << product << endl;
 	}
-	void func::add(double a, double d)
+	void func::math::add(double a, double d)
 	{
 		double sum = a + d;
 		cout << a << " + " << d << " = " << sum << endl;
 	}
-	void func::sub(double s, double u) {
+	void func::math::sub(double s, double u) {
 		double differ = s - u;
 		cout << s << " - " << u << " = " << differ << endl;
 	}
-	void func::div(double d, double i)
+	void func::math::div(double d, double i)
 	{
 		double quotient = d / i;
 		cout << d << " / " << i << " = " << quotient << endl;
 	}
-	int func::food() {
-		cout << "\n Enter any number from 0-9\n";
-		cin >> i;
-		if (i > 9)
-		{
-			cout << "\nInvalid Number! Enter any number from 0-9";
-			return 1;
+	void func::cmd()
+	{
+		getline(cin, pHolder);
+		for (int loop = 0; loop < 100000; loop++) {
+			getline(cin, executablePath);
+			if (executablePath == "exit") {
+				break;
+				key();
+			}
+			else if (executablePath == "cmd") {
+				system("C:\\WIndows\\System32\\cmd.exe");
+			}
+			else {
+				system(executablePath.c_str());
+			}
 		}
-		else {
-			//Nothing here either
-		}
-		cout << "Your favourite food is: ";
-		if (i == 0) {
+		system("pause");
+	}
+	void func::food() {
+		//cout << "\n Enter any number from 0-9\n";
+		//cin >> i;
+		//if (i > 9)
+		//{
+		//	cout << "\nInvalid Number! Enter any number from 0-9";
+		//	return 1;
+		//}
+		//else {
+		//	//Nothing here either
+		//}
+		//cout << "Your favourite food is: ";
+		//if (i == 0) {
+		//	cout << foodchoice[0];
+		//}
+		//else if (i == 1) {
+		//	cout << foodchoice[1];
+		//}
+		//else if (i == 2) {
+		//	cout << foodchoice[2];
+		//}
+		//else if (i == 3) {
+		//	cout << foodchoice[3];
+		//}
+		//else if (i == 4) {
+		//	cout << foodchoice[4];
+		//}
+		//else if (i == 5) {
+		//	cout << foodchoice[5];
+		//}
+		//else if (i == 6) {
+		//	cout << foodchoice[6];
+		//}
+		//else if (i == 7) {
+		//	cout << foodchoice[7];
+		//}
+		//else if (i == 8) {
+		//	cout << foodchoice[8];
+		//}
+		//else if (i == 9) {
+		//	cout << foodchoice[9];
+		//}
+		//else {
+		//	//Nothing here
+		//}
+		srand((unsigned)std::time(0));
+		printf("Guessing your favourite food : \n ");
+		int result = 1 + (rand() % 9);
+		switch (result) {
+		case 0:
 			cout << foodchoice[0];
-		}
-		else if (i == 1) {
+			break;
+		case 1:
 			cout << foodchoice[1];
-		}
-		else if (i == 2) {
+			break;
+		case 2:
 			cout << foodchoice[2];
-		}
-		else if (i == 3) {
+			break;
+		case 3:
 			cout << foodchoice[3];
-		}
-		else if (i == 4) {
+			break;
+		case 4:
 			cout << foodchoice[4];
-		}
-		else if (i == 5) {
+			break;
+		case 5:
 			cout << foodchoice[5];
-		}
-		else if (i == 6) {
+			break;
+		case 6:
 			cout << foodchoice[6];
-		}
-		else if (i == 7) {
+			break;
+		case 7:
 			cout << foodchoice[7];
-		}
-		else if (i == 8) {
+			break;
+		case 8:
 			cout << foodchoice[8];
-		}
-		else if (i == 9) {
+			break;
+		case 9:
 			cout << foodchoice[9];
-		}
-		else {
-			//Nothing here
+			break;
+		default:
+			printf("Error");
+			break;
 		}
 		key();
+	}
+	void func::delay(unsigned int milliseconds)
+	{
+		
+		milliseconds *= 1000;
+		Sleep(milliseconds);
 	}
 	void func::main2() {
 		cout << "Your first name";
@@ -146,7 +279,7 @@ string foodchoice[SIZE] = { "pizza", "shawarma", "maccoroni and cheese", "falafa
 	}
 	void func::textEdit()
 	{
-		cout << "Would you like to read or write? 0 To read, 1 to write, 2 to rename a file and 3 to delete a file.\n";
+		cout << "Would you like to read or write? 0 To read, 1 to write, 2 to rename a file and 3 to delete a file\n";
 		cin >> rw;
 		if (rw == 0) {
 			cout << "Enter filename: ";
@@ -206,21 +339,26 @@ string foodchoice[SIZE] = { "pizza", "shawarma", "maccoroni and cheese", "falafa
 		else if (rw == 3) {
 			cout << "Enter file to delete: ";
 			getline(cin, pHolder);
-			getline(cin, filename);
-			cout << "Are you sure you want to delete " << filename << " y for yes and n for no";
+			cin.getline(fileName, 1000);
+			cout << "Are you sure you want to PERMANENTLY delete " << fileName << " y for yes and n for no";
 			cin >> choice;
-			if (choice == 'y') {
-				cout << "Deleting " << filename << endl;
-				remove(filename.c_str());
-				cout << "Deleted " << filename;
-			}
-			else {
-				cout << "Cancled deletion of " << filename;
-			}
+				if (choice == 'y') {
+					Class1* p1 = 0;
+					p1->deleteFile(fileName, 1);
+				}
+				else {
+					cout << "Cancled deletion of " << filename;
+				}
+
 		}
+		/*else if (rw == 4) {
+			cout << "Enter file to copy";
+			cin >> filename;
+			copy(filename);
+		}*/
 		else
 		{
-
+			cout << "Incorrect file operation!  Enter any number from 0-3";
 		}
 		key();
 	}
@@ -243,4 +381,17 @@ string foodchoice[SIZE] = { "pizza", "shawarma", "maccoroni and cheese", "falafa
 			else {
 				cout << "No food ): ";
 			}
-	};
+	}
+	void func::Class1::deleteFile(char deleteFile[100], int dis)
+	{
+		if (dis == 1) {
+			cout << "Deleting " << deleteFile << endl;
+			remove(deleteFile);
+			cout << "Deleted " << deleteFile << " Successfully";
+		}
+		else if (dis == 0) {
+			remove(deleteFile);
+		}
+		else {
+		}
+	}
