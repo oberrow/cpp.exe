@@ -4,6 +4,9 @@
 #include "Func.h"
 #include <Windows.h>
 #include <stdlib.h>
+#include <conio.h>
+#include <filesystem>
+#include "val_main.h"
 using std::endl;
 using std::cout;
 using std::string;
@@ -17,63 +20,55 @@ using func::struct1;
 using func::math;
 using func::main2;
 using func::textEdit;
-const int SUCCESS = 0;
-const int FAIL = 1;
-int functions;
-int age = 15;
-int operVal;
-double a;
-double b;
-string password = "OmarBerrow";
-string passcheck;
-string logfile = "cpp-log.log";
-char logFile[12] = {"cpp-log.log"};
-string Pholder;
 int main(int argc, char* argv[]) {
+	Class1 c;
 	math math;
 	ofstream log(logfile);
-	Class1 Class;
+	/*bool check = c.argCheck(argv, "timer", 1);*/
+	log << "Application started\n";
 	if ((argc == 2) && _stricmp(argv[1], "1") == 0) {
 		food();
 	}
-	else if ((argc == 2) && _stricmp(argv[1], "2") == 0) {
-		cout << "Enter an operation 1 for addition, 2 for substraction, 3 for multiplacation and 4 for division.";
-		cin >> operVal;
-		if (operVal == 1) {
+	else if ((argc == 3) && _stricmp(argv[1], "2") == 0) {
+		int cmdOperVal;
+		cmdOperVal = atoi(argv[2]);
+		if (cmdOperVal == 1) {
 			log << "\nUser chose addition";
 			cout << "Number 1";
 			cin >> a;
 			cout << "Number 2";
 			cin >> b;
 			math.add(a, b);
-			key();
 		}
-		else if (operVal == 2) {
+		else if (cmdOperVal == 2) {
 			log << "\nUser chose substraction";
 			cout << "Number 1";
 			cin >> a;
 			cout << "Number 2";
 			cin >> b;
 			math.sub(a, b);
-			key();
 		}
-		else if (operVal == 3) {
+		else if (cmdOperVal == 3) {
 			log << "\nUser chose multiplication";
 			cout << "Number 1";
 			cin >> a;
 			cout << "Number 2";
 			cin >> b;
 			math.multi(a, b);
-			key();
 		}
-		else if (operVal == 4) {
+		else if (cmdOperVal == 4) {
 			log << "\nUser chose divison";
 			cout << "Number 1";
 			cin >> a;
 			cout << "Number 2";
 			cin >> b;
 			math.div(a, b);
-			key();
+		}
+		else if (cmdOperVal == 5) {
+			log << "\nUser chose squaring";
+			cout << "Enter number to square";
+			cin >> a;
+			math.square(a);
 		}
 		else {
 		}
@@ -127,21 +122,32 @@ int main(int argc, char* argv[]) {
 	else if ((argc == 2) && _stricmp(argv[1], "8") == 0) {
 		cmd();
 	}	
-	else if ((argc == 2) && _stricmp(argv[1], "9") == 0) {
+	else if ((argc == 3) && _stricmp(argv[1], "9") == 0) {
 		log << "\nUser chose timer";
-		cout << "Enter time (in seconds) for the timer to last : ";
-		int duration;
-		cin >> duration;
-		func::time(0, duration);
+		int duration = atoi(argv[2]);
+		func::time(0, duration, true);
 	}
-	else if (argc > 2) {
+	else if ((argc == 2) && _stricmp(argv[1], "new") == 0) {
+	std::filesystem::current_path("C:\\MCBEPlay\\bds\\worlds\\");
+	cout << "Enter world name: ";
+	string worldName;
+	getline(cin, worldName);
+	std::filesystem::create_directory(worldName);
+}
+	else if ((argc == 3) && _stricmp(argv[1], "0") == 0 && (argc == 3) && _stricmp(argv[2], "OmarBerrow") == 0) {
+		log << "\nUser chose testing function via command line";
+		for (int i = 0; i < argc; i++) {
+			cout << "argv[" << i << "] is " << argv[i] << endl;
+		}
+		
+	}
+	else if (argc > 3) {
 		cout << "Arguments are: HELP, /?, -h, 1, 2, 3, 4, 5, 6, 7, 8 and 9\n";
 	}
 	else if ((argc == 2) && _stricmp(argv[1], "-h") == 0 || (argc == 2) && _stricmp(argv[1], "/?") == 0 || (argc == 2) && _stricmp(argv[1], "HELP") == 0) {
 		cout << "Arguments are: HELP, /?, -h, 1, 2, 3, 4, 5, 6, 7, 8 and 9\n";
 	}
 	else {
-		log << "Application started\n";
 		cout << "Choose a function to run.Press 1 for function 1, 2 for function 2, 3 for function 3, 4 for function 4,\n 5 for function 5, 6 for function 6, 7 for function 7, 8 for function 8 and 9 for function 9.\nEnter 10 to exit\n";
 		cin >> functions;
 		if (functions == 1) {
@@ -150,7 +156,7 @@ int main(int argc, char* argv[]) {
 		}
 		else if (functions == 2) {
 			log << "User chose calculator function";
-			cout << "Enter an operation 1 for addition, 2 for substraction, 3 for multiplacation and 4 for division.";
+			cout << "Enter an operation 1 for addition, 2 for substraction, 3 for multiplacation, 4 for division and 5 to square a number.";
 			cin >> operVal;
 			if (operVal == 1) {
 				log << "\nUser chose addition";
@@ -188,7 +194,18 @@ int main(int argc, char* argv[]) {
 				math.div(a, b);
 				key();
 			}
+			else if (operVal == 5) {
+				log << "\nUser chose squaring";
+				cout << "Enter number to square";
+				cin >> a;
+				math.square(a);
+				key();
+			}
 			else {
+				OutputDebugString(L"[INFO] CODE 1 (EXIT_FAILURE)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+				cout << "Invalid Operation";
+				key();
+				return EXIT_FAILURE;
 			}
 		}
 		else if (functions == 3) {
@@ -249,15 +266,14 @@ int main(int argc, char* argv[]) {
 		cout << "Enter time (in seconds) for the timer to last : ";
 		int duration;
 		cin >> duration;
-		func::time(0, duration);
-		key();
+		func::time(0, duration, false);
 		}
 		else if (functions == 10) {
-		OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+		OutputDebugString(L"[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
 			log << "\nEnded successfully (code 0)";
 			log.close();
-			Class.deleteFile(logFile, 0);
-			return SUCCESS;
+			c.deleteFile(logFile, 0);
+			return EXIT_SUCCESS;
 		}
 		else if (functions == 0) {
 			log << "\nUser chose testing function";
@@ -265,12 +281,26 @@ int main(int argc, char* argv[]) {
 			cin >> passcheck;
 
 			if (passcheck == password) {
-				log << "\nUser entered correct password";
-				cout << "Enter time (in seconds) for the timer to last : ";
-				int duration;
-				cin >> duration;
-				func::time(0, duration);
-				
+				/*log << "\nUser entered correct password";
+				cout << sizeof(long int);
+				cout << endl;
+				cout << sizeof(int);
+				cout << endl;
+				cout << sizeof(double);
+				cout << endl;
+				cout << sizeof(float);
+				cout << endl;
+				cout << sizeof(std::string);
+				cout << endl;
+				cout << sizeof(func::cmdArgs);
+				cout << endl;
+				cout << sizeof(char*);
+				cout << endl;
+				cout << sizeof(char);
+				cout << endl;
+				cout << sizeof(bool);
+				cout << endl;*/
+				key();
 				/*int pri;
 				Class1* p1 = 0;
 				cout << "Enter a number from 1-4: ";
@@ -293,39 +323,20 @@ int main(int argc, char* argv[]) {
 			else {
 				log << "\nUser entered an incorrect password";
 				cout << "Incorrect Password!";
+				key();
 			}
 
 		}
 		else {
+		    OutputDebugString(L"[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
 			cout << "\nInvalid Function!";
 			key();
-			return FAIL;
+			return EXIT_FAILURE;
 		}
-		OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
-		log << "\nEnded successfully (code 0)";
-		log.close();
-		Class.deleteFile(logFile, 0);
-		return SUCCESS;
 	}
-	
+	OutputDebugString(L"[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+	log << "\nEnded successfully (code 0)";
+	log.close();
+	c.deleteFile(logFile, 0);
+	return EXIT_SUCCESS;
 }
-//#include <iostream>
-//#include <string.h>
-//
-//using namespace std;
-//int main(int argc, char* argv[], char* envp[])
-//{
-//    bool numberLines = false;    // Default is no line numbers.
-//
-//    // If /n is passed to the .exe, display numbered listing
-//    // of environment variables.
-//    if ((argc == 2) && _stricmp(argv[1], "/n") == 0)
-//        numberLines = true;
-//
-//    // Walk through list of strings until a NULL is encountered.
-//    for (int i = 0; envp[i] != NULL; ++i)
-//    {
-//        if (numberLines)
-//            cout << i << ": "; // Prefix with numbers if /n specified
-//        cout << envp[i] << "\n";
-//    }
