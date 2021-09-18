@@ -46,7 +46,7 @@ using func::textEdit;
 		cout << food.ingredient5;
 		key();
 	}
-	void func::time(int start, int duration, bool key = false)
+	void func::Class1::time(int start, int duration, bool key = false)
 	{
 		if (key) {
 			int minutes = 0;
@@ -170,16 +170,27 @@ using func::textEdit;
 	}
 	void func::cmd()
 	{
-		std::wstring exePath;
+		std::string exePath;
 		getline(cin, pHolder);
 		for (int loop = 0; loop < 100000; loop++) {
 			getline(cin, executablePath);
 			if (executablePath == "exit") {
 				break;
-				key();
 			}
 			else if (executablePath == "cmd") {
 				system("C:\\WIndows\\System32\\cmd.exe");
+			}
+			else if (executablePath == "cd") {
+				cout << "Enter directory: ";
+				string dir;
+				getline(cin, dir);
+				std::filesystem::current_path(dir);
+			}
+			else if (executablePath == "chdir") {
+				cout << "Enter directory: ";
+				string dir;
+				getline(cin, dir);
+				std::filesystem::current_path(dir);
 			}
 			else {
 				system(executablePath.c_str());
@@ -272,32 +283,18 @@ using func::textEdit;
 		}
 		key();
 	}
-	void func::clear() {
-		HANDLE h;
-		CHAR_INFO v3;
-		COORD v4;
-		SMALL_RECT v5;
-		CONSOLE_SCREEN_BUFFER_INFO v6;
-		if ((h = (HANDLE)GetStdHandle(0xFFFFFFF5), (unsigned int)GetConsoleScreenBufferInfo(h, &v6)))
-		{
-			v5.Right = v6.dwSize.X;
-			v5.Bottom = v6.dwSize.Y;
-			v3.Char.UnicodeChar = 32;
-			v4.Y = -v6.dwSize.Y;
-			v3.Attributes = v6.wAttributes;
-			v4.X = 0;
-			*(DWORD*)&v5.Left = 0;
-			ScrollConsoleScreenBufferW(h, &v5, 0, v4, &v3);
-			v6.dwCursorPosition = { 0 };
-			HANDLE v1 = GetStdHandle(0xFFFFFFF5);
-			SetConsoleCursorPosition(v1, v6.dwCursorPosition);
-		}
-	}
 	void func::delay(unsigned int milliseconds)
 	{
 		
 		milliseconds *= 1000;
 		Sleep(milliseconds);
+	}
+	bool func::findChar(const char* find[], const char* car[1], int num)
+	{
+		if(find[num] == car[0])
+			return true;
+		else
+			return false;
 	}
 	void func::main2() {
 		cout << "Your first name";
@@ -400,6 +397,19 @@ using func::textEdit;
 		cout << print;
 		return print;
 	}
+	void func::Class1::deleteFile(char const deleteFile[100], bool dis)
+	{
+		if (dis == true) {
+			cout << "Deleting " << deleteFile << endl;
+			remove(deleteFile);
+			cout << "Deleted " << deleteFile << " Successfully";
+		}
+		else if (dis == false) {
+			remove(deleteFile);
+		}
+		else {
+		}
+	}
 	void func::Class1::deleteFile(char deleteFile[100], bool dis)
 	{
 		if (dis == true) {
@@ -424,4 +434,38 @@ using func::textEdit;
 			return 1;
 		else
 			return 0;
+	}
+	bool func::Class1::argCheck(char* argv[], std::string text, int argc) {
+		if (strcmp(argv[argc], text.c_str()) == 0) 
+			return 1;
+		else
+			return 0;
+	}
+	std::ostream& func::operator<<(std::ostream& os, const func::constructer& dt)
+	{
+		constructer* c;
+		os << c->r;
+		return os;
+	}
+	bool func::find(char argv[], char text[], int argc)
+	{
+		if (argv[argc] == text[0])
+			return 1;
+		else
+			return 0;
+	}
+	int func::constructer::add(int a, int b)
+	{
+		return func::constructer::c + func::constructer::d;
+	}
+	int func::constructer::sub(int a, int b) {
+		return func::constructer::c - func::constructer::d;
+	}
+	int func::constructer::multi(int a, int b)
+	{
+		return func::constructer::c * func::constructer::d;
+	}
+	int func::constructer::div(int a, int b)
+	{
+		return func::constructer::c / func::constructer::d;
 	}

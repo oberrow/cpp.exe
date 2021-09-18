@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "Func.h"
+#include "headers\Func.h"
 #include <Windows.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <filesystem>
-#include "val_main.h"
+#include "headers\val_main.h"
+#include <stdint.h>
 using std::endl;
 using std::cout;
 using std::string;
@@ -24,47 +25,54 @@ int main(int argc, char* argv[]) {
 	Class1 c;
 	math math;
 	ofstream log(logfile);
-	/*bool check = c.argCheck(argv, "timer", 1);*/
 	log << "Application started\n";
 	if ((argc == 2) && _stricmp(argv[1], "1") == 0) {
 		food();
 	}
 	else if ((argc == 3) && _stricmp(argv[1], "2") == 0) {
-		int cmdOperVal;
-		cmdOperVal = atoi(argv[2]);
-		if (cmdOperVal == 1) {
-			log << "\nUser chose addition";
-			cout << "Number 1";
-			cin >> a;
-			cout << "Number 2";
-			cin >> b;
-			math.add(a, b);
+		int d{};
+		int e{};
+		if (c.argCheck(argv, "+", 2)) {
+			log << "User chose addition";
+			cout << "Number 1: ";
+			cin >> d;
+			cout << "Number 2: ";
+			cin >> e; 
+			func::constructer add(d, '+', e);
+			//cout << d << " + " << e << " = ";
+			cout << add;
 		}
-		else if (cmdOperVal == 2) {
+		else if (c.argCheck(argv, "-", 2) == 1) {
 			log << "\nUser chose substraction";
-			cout << "Number 1";
-			cin >> a;
-			cout << "Number 2";
-			cin >> b;
-			math.sub(a, b);
+			cout << "Number 1: ";
+			cin >> d;
+			cout << "Number 2: ";
+			cin >> e;
+			func::constructer sub = { d, substaction , e };
+			cout << d << " - " << e << " = ";
+			cout << sub;
 		}
-		else if (cmdOperVal == 3) {
+		else if (c.argCheck(argv, "*", 2)) {
 			log << "\nUser chose multiplication";
-			cout << "Number 1";
-			cin >> a;
-			cout << "Number 2";
-			cin >> b;
-			math.multi(a, b);
+			cout << "Number 1: ";
+			cin >> d;
+			cout << "Number 2: ";
+			cin >> e;
+			func::constructer multi = { d, multiplication, e };
+			cout << d << " * " << e << " = ";
+			cout << multi;
 		}
-		else if (cmdOperVal == 4) {
+		else if (c.argCheck(argv, "/", 2)) {
 			log << "\nUser chose divison";
-			cout << "Number 1";
-			cin >> a;
-			cout << "Number 2";
-			cin >> b;
-			math.div(a, b);
+			cout << "Number 1: ";
+			cin >> d;
+			cout << "Number 2: ";
+			cin >> e;
+			func::constructer div = { d, division, e };
+			cout << d << " / " << e << " = "; 
+			cout << div;
 		}
-		else if (cmdOperVal == 5) {
+		else if (argv[2] == "²") {
 			log << "\nUser chose squaring";
 			cout << "Enter number to square";
 			cin >> a;
@@ -125,7 +133,7 @@ int main(int argc, char* argv[]) {
 	else if ((argc == 3) && _stricmp(argv[1], "9") == 0) {
 		log << "\nUser chose timer";
 		int duration = atoi(argv[2]);
-		func::time(0, duration, true);
+		c.time(0, duration, true);
 	}
 	else if ((argc == 2) && _stricmp(argv[1], "new") == 0) {
 	std::filesystem::current_path("C:\\MCBEPlay\\bds\\worlds\\");
@@ -139,7 +147,14 @@ int main(int argc, char* argv[]) {
 		for (int i = 0; i < argc; i++) {
 			cout << "argv[" << i << "] is " << argv[i] << endl;
 		}
-		
+		/*char check[12] = { "Omar Berrow" };
+		char b;
+		cin >> b;
+		char a[1] = { b };
+		if(check[0] == a[0]) 
+			cout << "Yes";
+		else 
+			cout << "No";*/
 	}
 	else if (argc > 3) {
 		cout << "Arguments are: HELP, /?, -h, 1, 2, 3, 4, 5, 6, 7, 8 and 9\n";
@@ -202,7 +217,7 @@ int main(int argc, char* argv[]) {
 				key();
 			}
 			else {
-				OutputDebugString(L"[INFO] CODE 1 (EXIT_FAILURE)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+				OutputDebugStringA("[INFO] CODE 1 (EXIT_FAILURE)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
 				cout << "Invalid Operation";
 				key();
 				return EXIT_FAILURE;
@@ -266,10 +281,10 @@ int main(int argc, char* argv[]) {
 		cout << "Enter time (in seconds) for the timer to last : ";
 		int duration;
 		cin >> duration;
-		func::time(0, duration, false);
+		c.time(0, duration, false);
 		}
 		else if (functions == 10) {
-		OutputDebugString(L"[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+		OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
 			log << "\nEnded successfully (code 0)";
 			log.close();
 			c.deleteFile(logFile, 0);
@@ -300,6 +315,41 @@ int main(int argc, char* argv[]) {
 				cout << endl;
 				cout << sizeof(bool);
 				cout << endl;*/
+				/*char txt[2] = { 'h', '\0'};
+				bool check = c.argCheck(argv, txt, 1);
+				if (check == true) {
+					cout << "Yay!";
+				}
+				else {
+					cout << "Boo :(";
+				}*/
+				/*const char* car1[2] = { "a\0" };
+				const char* car2[5] = { "Omar\0" };
+				bool check = func::findChar(car2, car1, 3);
+				if (check) 
+					cout << "Yes!";
+				else
+					cout << "No :(";*/
+				/*cout << sizeof(int64_t);
+				cout << "\n";
+				cout << sizeof(int) << "\n";
+				cout << sizeof(long long int);*/
+				cout << "Enter +, -, * or / : ";
+				char oper;
+				cin >> oper;
+				cout << "Number 1: ";
+				int c, d;
+				cin >> c;
+				cout << "Number 2";
+				cin >> d;
+				func::constructer build(c, oper, d);
+				cout << build;
+				/*if (MessageBoxA(NULL, "Whatever", argv[0], MB_OKCANCEL || MB_ICONINFORMATION) == 1) {
+					cout << "\nYeah i guess it works";
+				}
+				else {
+					cout << "\nNo it doesn't";
+				}*/
 				key();
 				/*int pri;
 				Class1* p1 = 0;
@@ -328,13 +378,13 @@ int main(int argc, char* argv[]) {
 
 		}
 		else {
-		    OutputDebugString(L"[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+		    OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
 			cout << "\nInvalid Function!";
 			key();
 			return EXIT_FAILURE;
 		}
 	}
-	OutputDebugString(L"[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+	OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
 	log << "\nEnded successfully (code 0)";
 	log.close();
 	c.deleteFile(logFile, 0);

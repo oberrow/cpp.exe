@@ -11,4 +11,8 @@ std::string passcheck;
 std::string logfile = "cpp-log.log";
 char logFile[12] = { "cpp-log.log" };
 std::string Pholder;
+char addition = '+';
+char substaction = '-';
+char multiplication = '*';
+char division = '/';
 #endif
