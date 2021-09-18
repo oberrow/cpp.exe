@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "headers\Func.h"
+#include "Func.h"
 #include <Windows.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <filesystem>
-#include "headers\val_main.h"
+#include "val_main.h"
 #include <stdint.h>
 using std::endl;
 using std::cout;
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 			cout << d << " / " << e << " = "; 
 			cout << div;
 		}
-		else if (argv[2] == "²") {
+		else if (argv[2] == "Â²") {
 			log << "\nUser chose squaring";
 			cout << "Enter number to square";
 			cin >> a;
