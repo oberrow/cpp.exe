@@ -1,13 +1,12 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <string>
-#include "Func.h"
+#include "headers\Func.h"
 #include <Windows.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <filesystem>
-#include "val_main.h"
-#include <stdint.h>
+#include "headers\val_main.h"
 using std::endl;
 using std::cout;
 using std::string;
@@ -15,13 +14,14 @@ using std::cin;
 using std::ofstream;
 using func::Class1;
 using func::cmd;
-using func::food;
 using func::key;
+using func::food;
 using func::struct1;
 using func::math;
 using func::main2;
 using func::textEdit;
 int main(int argc, char* argv[]) {
+	func::db db;
 	Class1 c;
 	math math;
 	ofstream log(logfile);
@@ -35,48 +35,70 @@ int main(int argc, char* argv[]) {
 		if (c.argCheck(argv, "+", 2)) {
 			log << "User chose addition";
 			cout << "Number 1: ";
-			cin >> d;
+			cin >> a;
 			cout << "Number 2: ";
-			cin >> e; 
-			func::constructer add(d, '+', e);
-			//cout << d << " + " << e << " = ";
-			cout << add;
+			cin >> b; 
+			func::math2 add = { a, '+', b };
+			cout 
+				<< a
+				<< " + "
+				<< b
+				<< " = "
+				<< add;
 		}
 		else if (c.argCheck(argv, "-", 2) == 1) {
 			log << "\nUser chose substraction";
 			cout << "Number 1: ";
-			cin >> d;
+			cin >> a;
 			cout << "Number 2: ";
-			cin >> e;
-			func::constructer sub = { d, substaction , e };
-			cout << d << " - " << e << " = ";
-			cout << sub;
+			cin >> b;
+			func::math2 sub = { a, '-' , b };
+			cout 
+				<< a 
+				<< " - " 
+				<< b 
+				<< " = "
+				<< sub;
 		}
 		else if (c.argCheck(argv, "*", 2)) {
 			log << "\nUser chose multiplication";
 			cout << "Number 1: ";
-			cin >> d;
+			cin >> a;
 			cout << "Number 2: ";
-			cin >> e;
-			func::constructer multi = { d, multiplication, e };
-			cout << d << " * " << e << " = ";
-			cout << multi;
+			cin >> b;
+			func::math2 multi = { a, '*', b };
+			cout 
+				<< a 
+				<< " x " 
+				<< b 
+				<< " = "
+			    << multi;
 		}
 		else if (c.argCheck(argv, "/", 2)) {
 			log << "\nUser chose divison";
 			cout << "Number 1: ";
-			cin >> d;
+			cin >> a;
 			cout << "Number 2: ";
-			cin >> e;
-			func::constructer div = { d, division, e };
-			cout << d << " / " << e << " = "; 
-			cout << div;
+			cin >> b;
+			func::math2 div = { a, '/', b };
+			cout
+				<< a 
+				<< " / " 
+				<< b 
+				<< " = "
+			    << div;
 		}
-		else if (argv[2] == "²") {
+		else if (c.argCheck(argv, "²", 2)) {
 			log << "\nUser chose squaring";
 			cout << "Enter number to square";
 			cin >> a;
 			math.square(a);
+		}
+		else if (c.argCheck(argv, "³", 2)) {
+			log << "\nUser chose cubing";
+			cout << "Enter number to cube";
+			cin >> a;
+			math.cube(a);
 		}
 		else {
 		}
@@ -125,7 +147,7 @@ int main(int argc, char* argv[]) {
 	}
 	else if ((argc == 2) && _stricmp(argv[1], "7") == 0) {
 		log << "\nUser chose ingredients function";
-		func::struct2();
+		func::struct1();
 	}
 	else if ((argc == 2) && _stricmp(argv[1], "8") == 0) {
 		cmd();
@@ -155,7 +177,7 @@ int main(int argc, char* argv[]) {
 			cout << "Yes";
 		else 
 			cout << "No";*/
-	}
+}
 	else if (argc > 3) {
 		cout << "Arguments are: HELP, /?, -h, 1, 2, 3, 4, 5, 6, 7, 8 and 9\n";
 	}
@@ -171,7 +193,7 @@ int main(int argc, char* argv[]) {
 		}
 		else if (functions == 2) {
 			log << "User chose calculator function";
-			cout << "Enter an operation 1 for addition, 2 for substraction, 3 for multiplacation, 4 for division and 5 to square a number.";
+			cout << "Enter an operation 1 for addition, 2 for substraction, 3 for multiplacation, 4 for division, 5 to square a number and 6 to cube a number.";
 			cin >> operVal;
 			if (operVal == 1) {
 				log << "\nUser chose addition";
@@ -214,6 +236,13 @@ int main(int argc, char* argv[]) {
 				cout << "Enter number to square";
 				cin >> a;
 				math.square(a);
+				key();
+			}
+			else if (operVal == 6) {
+				log << "\nUser chose cubing";
+				cout << "Enter number to cube";
+				cin >> a;
+				math.cube(a);
 				key();
 			}
 			else {
@@ -271,6 +300,7 @@ int main(int argc, char* argv[]) {
 		else if (functions == 7) {
 			log << "\nUser chose ingredients function";
 			struct1();
+			key();
 		}
 		else if (functions == 8) {
 			cmd();
@@ -284,7 +314,7 @@ int main(int argc, char* argv[]) {
 		c.time(0, duration, false);
 		}
 		else if (functions == 10) {
-		OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+		OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code\n");
 			log << "\nEnded successfully (code 0)";
 			log.close();
 			c.deleteFile(logFile, 0);
@@ -294,8 +324,7 @@ int main(int argc, char* argv[]) {
 			log << "\nUser chose testing function";
 			cout << "Enter the password to enter testing \n";
 			cin >> passcheck;
-
-			if (passcheck == password) {
+			if (passcheck == db.encryptDecrypt(password, 'O')) {
 				/*log << "\nUser entered correct password";
 				cout << sizeof(long int);
 				cout << endl;
@@ -326,49 +355,98 @@ int main(int argc, char* argv[]) {
 				/*const char* car1[2] = { "a\0" };
 				const char* car2[5] = { "Omar\0" };
 				bool check = func::findChar(car2, car1, 3);
-				if (check) 
+				if (check)
 					cout << "Yes!";
 				else
 					cout << "No :(";*/
-				/*cout << sizeof(int64_t);
-				cout << "\n";
-				cout << sizeof(int) << "\n";
-				cout << sizeof(long long int);*/
-				cout << "Enter +, -, * or / : ";
-				char oper;
-				cin >> oper;
-				cout << "Number 1: ";
-				int c, d;
-				cin >> c;
-				cout << "Number 2";
-				cin >> d;
-				func::constructer build(c, oper, d);
-				cout << build;
-				/*if (MessageBoxA(NULL, "Whatever", argv[0], MB_OKCANCEL || MB_ICONINFORMATION) == 1) {
-					cout << "\nYeah i guess it works";
-				}
-				else {
-					cout << "\nNo it doesn't";
-				}*/
-				key();
-				/*int pri;
-				Class1* p1 = 0;
-				cout << "Enter a number from 1-4: ";
-				cin >> pri;
-				p1->print(pri);
-				cout << endl;
-				p1->print_cheese();
-				Nest nest;*/
-				/*cout << " " << twod[0][0];
-				cout << twod[0][1];
-				cout << twod[0][2];
-				cout << " " << twod[1][0];
-				cout << twod[1][1];
-				cout << twod[1][2];
-				cout << " " << twod[2][0];
-				cout << twod[2][1];
-				cout << twod[2][2];*/
+					/*cout << sizeof(int64_t);
+					cout << "\n";
+					cout << sizeof(int) << "\n";
+					cout << sizeof(long long int);*/
+					/*cout << "Enter +, -, * or / : ";
+					char oper;
+					cin >> oper;
+					cout << "Number 1: ";
+					cin >> a;
+					cout << "Number 2";
+					cin >> b;
+					func::math2 build(a, oper, b);
+					cout << build;*/
+					/*if (MessageBoxA(NULL, "Whatever", argv[0], MB_OKCANCEL || MB_ICONINFORMATION) == 1) {
+						cout << "\nYeah i guess it works";
+					}
+					else {
+						cout << "\nNo it doesn't";
+					}*/
+					/*int* heapArray = new int[8];
+					heapArray[0] = 1; heapArray[1] = 0; heapArray[2] = 0; heapArray[3] = 1; heapArray[4] = 0; heapArray[5] = 1;
+					heapArray[6] = 0; heapArray[7] = 1;
+					int array1[8] = { 1, 0, 0, 1, 0, 1, 0, 1 };
+					int array2[8] = { 1, 0, 1, 0, 0, 1, 0, 0 };
+					int array3[8] = { 1, 0, 0, 1, 0, 0, 1, 1 };
+					func::byte byte1 = heapArray;
+					func::byte byte2 = array1;
+					cout << byte1 << endl << byte2 << endl;
+					(~byte1.val);
+					if (byte1.bit2 & 1) {
+						cout << "Yes";
+					}
+					else {
+						cout << "No";
+					}
+					delete[] heapArray;*/
+					/*string noursData = db.encryptDecrypt("Nour 5/2/2007", 'N');
+					string omarsData = db.encryptDecrypt("Omar 8/6/2011", 'O');
+					string mohammadsData = db.encryptDecrypt("Mohammad 1/12/2015", 'M');
+					string obadasData = db.encryptDecrypt("Obada 11/8/2017", 'o');
+					string mamasData = db.encryptDecrypt("Mama 19/6/1980", 'R');
+					string babasData = db.encryptDecrypt("Baba 25/11/1980", 'K');
+					db.createFile("omarDb.omarDb", omarsData, 'O');
+					string data = db.readFile("omarDb.omarDb", 'O');
+					std::ifstream myFile("omarDb.omarDb");
+					std::string fileyFile;
+					while (getline(myFile, fileyFile)) {
 
+					}
+					db.encryptDecrypt(fileyFile, 'O');
+					cout << data << std::endl << fileyFile << endl;
+					myFile.close();*/
+				/*db.createFile("db.omDB", omarsData, 'O');
+				string fileData = db.readFile("db.omDb", 'O');
+				db.readFile("db.omDb", 'O');
+				cout << fileData;
+				std::ofstream myWriteFile("db.omDb");
+				myWriteFile << omarsData;
+				myWriteFile.close();
+				std::ifstream myReadFile("db.omDb");
+				string fileyText;
+				while (std::getline(myReadFile, fileyText)) {
+					
+				}
+				string filerText = db.encryptDecrypt(fileyText, 'O');
+				cout << filerText;
+				myReadFile.close(); */
+		string noursData = db.encryptDecrypt("Nour 5/2/2007", 'N');
+		string omarsData = db.encryptDecrypt("Omar 8/6/2011", 'O');
+		string mohammadsData = db.encryptDecrypt("Mohammad 1/12/2015", 'M'); 
+		string obadasData = db.encryptDecrypt("Obada 11/8/2017", 'o');
+		string mamasData = db.encryptDecrypt("Mama 19/6/1980", 'R');
+		string babasData = db.encryptDecrypt("Baba 25/11/1980", 'K');
+		string data = db.encryptDecrypt("Nour 05/02/2007, Omar 08/06/2011, Mohammad 01/12/2015, Obada 11/08/2017, Mama 19/6/1980, Baba 25/11/1980", 3);
+		db.createFile("file.omDb", data, 3);
+		string fileData = db.readFile("file.omDb");
+		cout << "Enter key to de-encrypt: ";
+		int key;
+		cin >> key;
+		string unEncryptedFileData = db.encryptDecrypt(fileData, key);
+		cout << unEncryptedFileData;
+		std::time_t time2;
+		std::time_t& time3 = time2;
+		int timex = static_cast<long int> (std::time(&time3));
+		string time = std::to_string(timex);
+		time = time + "/";
+		cout << std::endl << time;
+		func::key();
 			}
 			else {
 				log << "\nUser entered an incorrect password";
@@ -378,13 +456,13 @@ int main(int argc, char* argv[]) {
 
 		}
 		else {
-		    OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+		    OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code\n");
 			cout << "\nInvalid Function!";
 			key();
 			return EXIT_FAILURE;
 		}
 	}
-	OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code");
+	OutputDebugStringA("[INFO] CODE 0 (EXIT_SUCCESS)\n[INFO] Go to https://github.com/oberrow/cpp.exe for the source code\n");
 	log << "\nEnded successfully (code 0)";
 	log.close();
 	c.deleteFile(logFile, 0);
